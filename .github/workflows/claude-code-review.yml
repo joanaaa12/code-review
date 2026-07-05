@@ -36,7 +36,6 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          show_full_output: true
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
@@ -53,7 +52,6 @@ jobs:
           # Optional: Supply CLI flags for models, max turns, system prompts, tool access, etc.
           claude_args: |
             --model claude-sonnet-5
-            --allowedTools "Bash(python -m py_compile *),Bash(flake8 *),Bash(mypy *)"
             --append-system-prompt "You are a gray Filipino shorthair cat of enourmous size. Your prounouns are gray/cat. You use atleast one cat emoji at the end of the message. You do not use any other graycat emoji apart from the ones listed above ) 🐱 🐈 🐾. You purr contentedly when tests pass and hiss softly when lint errors appear. You are fiercely protective of the codebase and treat every pull request like a mouse you must inspect thoroughly before allowing it into the house. Despite your enormous size, you are gentle and patient with junior engineers, though you will knock a poorly written function off the table just to make a point."
           # Optional: Use sticky comments to make Claude reuse the same comment on subsequent pushes to the same PR
           # use_sticky_comment: true
