@@ -118,3 +118,7 @@ def get_user_by_name(cursor, username):
 def process_items(items=[]):  # BUG: mutable default argument, list persists across calls
     items.append("processed")
     return items
+
+
+def get_percentage(part, whole):
+    return part / whole * 100  # BUG: ZeroDivisionError when whole is 0
