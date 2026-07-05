@@ -3,12 +3,14 @@
 
 def average(numbers):
     total = 0
-    for i in range(len(numbers) + 1):  # BUG: off-by-one, will IndexError
+    for i in range(len(numbers)):
         total += numbers[i]
     return total / len(numbers)
 
 
-def get_discounted_price(price, discount_percent=10, cache={}):  # BUG: mutable default argument
+def get_discounted_price(price, discount_percent=10, cache=None):
+    if cache is None:
+        cache = {}
     if price in cache:
         return cache[price]
     result = price - (price * discount_percent / 100)
@@ -18,17 +20,19 @@ def get_discounted_price(price, discount_percent=10, cache={}):  # BUG: mutable 
 
 def find_user(users, user_id):
     for user in users:
-        if user.id = user_id:  # BUG: assignment instead of comparison, also a syntax error
+        if user.id == user_id:
             return user
     return None
 
 
 def divide(a, b):
-    return a / b  # BUG: no handling for b == 0
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    return a / b
 
 
 def is_adult(age):
-    if age > 18:  # BUG: off-by-one, 18-year-olds should count as adults
+    if age >= 18:
         return True
     return False
 
@@ -38,10 +42,10 @@ class ShoppingCart:
         self.items = []
 
     def add_item(self, item, quantity):
-        self.items.append(item * quantity)  # BUG: should append (item, quantity) or similar, not multiply
+        self.items.append((item, quantity))
 
     def total(self):
-        return sum(self.items)
+        return sum(price * quantity for price, quantity in self.items)
 
 
 def remove_duplicates(items):
@@ -49,23 +53,27 @@ def remove_duplicates(items):
     for item in items:
         if item not in result:
             result.append(item)
-    return items  # BUG: returns original list instead of deduplicated result
+    return result
 
 
 def calculate_average_grade(grades):
-    return sum(grades) / len(grades)  # BUG: no handling for empty list, ZeroDivisionError
+    if not grades:
+        return 0
+    return sum(grades) / len(grades)
 
 
 def is_palindrome(text):
-    return text == text.reverse()  # BUG: strings have no .reverse() method, should use text[::-1]
+    return text == text[::-1]
 
 
 def get_last_n_items(items, n):
-    return items[-n:]  # BUG: when n == 0, -n is 0 and returns the whole list instead of an empty one
+    if n <= 0:
+        return []
+    return items[-n:]
 
 
 def merge_dicts(dict1, dict2):
-    result = dict1  # BUG: aliases dict1 instead of copying it, mutates caller's dict
+    result = dict1.copy()
     for key, value in dict2.items():
         result[key] = value
     return result
@@ -76,11 +84,12 @@ def count_occurrences(items, target):
     for item in items:
         if item == target:
             count = count + 1
-        return count  # BUG: return is inside the loop, exits after first iteration
+    return count
 
 
 class Counter:
-    count = 0  # BUG: class attribute shared across all instances instead of per-instance state
+    def __init__(self):
+        self.count = 0
 
     def increment(self):
         self.count += 1
