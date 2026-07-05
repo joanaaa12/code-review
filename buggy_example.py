@@ -130,3 +130,11 @@ def get_first_item(items):
 
 def to_int(value):
     return int(value)  # BUG: no handling for non-numeric strings, raises ValueError
+
+
+def get_max(numbers):
+    max_value = 0  # BUG: assumes 0 is the lowest possible value, fails for all-negative lists
+    for n in numbers:
+        if n > max_value:
+            max_value = n
+    return max_value
