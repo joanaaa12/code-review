@@ -126,3 +126,7 @@ def get_percentage(part, whole):
 
 def get_first_item(items):
     return items[0]  # BUG: IndexError when items is empty
+
+
+def to_int(value):
+    return int(value)  # BUG: no handling for non-numeric strings, raises ValueError
