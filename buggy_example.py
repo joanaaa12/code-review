@@ -113,3 +113,8 @@ def get_user_by_name(cursor, username):
     query = "SELECT * FROM users WHERE name = '" + username + "'"
     cursor.execute(query)
     return cursor.fetchone()
+
+
+def process_items(items=[]):  # BUG: mutable default argument, list persists across calls
+    items.append("processed")
+    return items
