@@ -50,3 +50,38 @@ def remove_duplicates(items):
         if item not in result:
             result.append(item)
     return items  # BUG: returns original list instead of deduplicated result
+
+
+def calculate_average_grade(grades):
+    return sum(grades) / len(grades)  # BUG: no handling for empty list, ZeroDivisionError
+
+
+def is_palindrome(text):
+    return text == text.reverse()  # BUG: strings have no .reverse() method, should use text[::-1]
+
+
+def get_last_n_items(items, n):
+    return items[-n:]  # BUG: when n == 0, -n is 0 and returns the whole list instead of an empty one
+
+
+def merge_dicts(dict1, dict2):
+    result = dict1  # BUG: aliases dict1 instead of copying it, mutates caller's dict
+    for key, value in dict2.items():
+        result[key] = value
+    return result
+
+
+def count_occurrences(items, target):
+    count = 0
+    for item in items:
+        if item == target:
+            count = count + 1
+        return count  # BUG: return is inside the loop, exits after first iteration
+
+
+class Counter:
+    count = 0  # BUG: class attribute shared across all instances instead of per-instance state
+
+    def increment(self):
+        self.count += 1
+        return self.count
