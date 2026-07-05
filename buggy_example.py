@@ -1,5 +1,11 @@
 """Small utility module with several intentionally planted bugs, used to test code review."""
 
+import os
+
+
+def list_files_in_directory(directory):
+    os.system("ls " + directory)  # BUG: command injection, directory is unsanitized user input
+
 
 def average(numbers):
     total = 0
