@@ -138,3 +138,8 @@ def get_max(numbers):
         if n > max_value:
             max_value = n
     return max_value
+
+
+def get_env_config(key):
+    import os
+    return os.environ[key]  # BUG: raises uncaught KeyError if the env var is not set
