@@ -106,3 +106,10 @@ def connect_to_database():
     # BUG: hardcoded credentials committed to source control
     password = "admin123"
     return f"connecting with password={password}"
+
+
+def get_user_by_name(cursor, username):
+    # BUG: SQL injection, username is interpolated directly into the query
+    query = "SELECT * FROM users WHERE name = '" + username + "'"
+    cursor.execute(query)
+    return cursor.fetchone()
