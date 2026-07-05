@@ -122,3 +122,7 @@ def process_items(items=[]):  # BUG: mutable default argument, list persists acr
 
 def get_percentage(part, whole):
     return part / whole * 100  # BUG: ZeroDivisionError when whole is 0
+
+
+def get_first_item(items):
+    return items[0]  # BUG: IndexError when items is empty
